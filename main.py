@@ -18,9 +18,9 @@ ID = 'SOql4uavXyMdC9BTYktZDz152sPIhQLm6ucxoy2ujxmqb8o7E1'
 OVERFIT_VECTOR = [0.0, -1.457990220064754e-12, -2.2898007842769645e-13, 4.620107525277624e-11, -1.7521481289918844e-10,
                   -1.8366976965696096e-15, 8.529440604118815e-16, 2.2942330256117977e-05, -2.0472100298772093e-06,
                   -1.597928341587757e-08, 9.982140340891233e-10]
-POPULATION_SIZE = 10
+POPULATION_SIZE = 9
 MUTATION_PROBABILITY = 1
-GENERATIONS = 15
+GENERATIONS = 10
 
 def new_individual(individual):
     new_vec = []
@@ -63,7 +63,8 @@ def crossover(vectora, vectorb):
 
 def next_generation(population, weights):
     next_gen = []
-    for i in range(POPULATION_SIZE // 2):
+    next_gen.append(population[weights.index(max(weights))])
+    for i in range((POPULATION_SIZE-1) // 2):
         parenta, parentb = selection(population, weights)
         gena, genb = crossover(parenta, parentb)
         next_gen.append(gena)
@@ -95,6 +96,7 @@ def find_solution():
 
 find_solution()
 # [390291186291.0382, 242539265028.76385, 214138031745.40417, 206886489618.1717, 190430080178.52347, 332093872541.82733, 172961207744.41193, 213620720044.12302, 412550658550.62537, 242539265028.76385]
+# [1425921936610.8008, 1218207512986.0051, 368296728554.589, 219887937100.86172, 331487347902.10046, 422283736836.76697, 299947444456.6427, 7478403334224.537, 1423983274670.1782]
 
 
 
