@@ -1,6 +1,5 @@
 import json
 import requests
-import numpy as np
 
 API_ENDPOINT = 'http://10.4.21.156'
 MAX_DEG = 11
