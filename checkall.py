@@ -60,14 +60,15 @@ print(best_ind_overall)
 # ([-10.0, -1.457990220064754e-12, -10.0, 4.620107525277624e-11, -1.7521481289918844e-10, -1.8366976965696096e-15, 8.529440604118815e-16, 2.2942330256117977e-05, -2.0472100298772093e-06, -1.597928341587757e-08, 9.982140340891233e-10], [13072745615.275206, 363475493334.69293])
 # ([3.1949023879097087, -1.1566445813966808e-12, -1.706303783105885e-13, 7.164510593350617e-11, -2.9798027152778016e-10, -1.4938953170083339e-15, 1.5155307589985295e-15, 3.493791911133584e-05, -2.049689889668182e-06, -9.819094534206726e-09, 7.375886083349607e-10], [1585818192301.4272, 115225209097.53365])
 # ([3.527148438220248, -1.1667084630712077e-12, -1.706303783105885e-13, 9.307512270052608e-11, -1.7521481289918844e-10, -2.1685394479697994e-15, 6.35513405133212e-16, 2.2942330256117977e-05, -2.049689889668182e-06, -1.597928341587757e-08, 9.982140340891233e-10], [60135843090.301476, 234428840487.46906])
-# print(len(init_pop))
-# def sorter(e):
-#     return overall(e[1])
-# init_pop.sort(key=sorter, reverse=True)
-# # for ind in init_pop:
-# #     print(ind, overall(ind[1]))
-# population = []
-# [population.append(x) for x in init_pop if x not in population]
-# population = [ind[0] for ind in population]
-# print(len(population))
-# print(population[:10])
+print(len(init_pop))
+def sorter(e):
+    return overall(e[1])
+init_pop.sort(key=sorter, reverse=True)
+# for ind in init_pop:
+#     print(ind, overall(ind[1]))
+population = []
+[population.append(x) for x in init_pop if x not in population]
+population = [ind[0] for ind in population]
+print(len(population))
+print(population[:5])
+
