@@ -2,7 +2,6 @@ from client2 import get_errors
 import random
 import json
 import numpy as np
-import math
 
 ID = 'SOql4uavXyMdC9BTYktZDz152sPIhQLm6ucxoy2ujxmqb8o7E1'
 MAX_DEG = 11
@@ -52,6 +51,7 @@ def calc_errors(individual, precalc):
     for item in precalc:
         # comp = individual == item[0]
         if list(individual) == list(item[0]):
+            print("calc")
             return list(item[1][1:])
     else:
         # return get_errors(ID, individual)
@@ -68,7 +68,7 @@ def calc_weights(population, precalc):
 
 
 def mutation(population):
-    for individual in population:
+    for individual in population[ELITISM:]:
         if random.uniform(0, 1) < MUT_PROB:
             for index in range(11):
                 individual[index] += individual[index] * random.uniform(-MUT_RANGE, MUT_RANGE)
@@ -97,18 +97,16 @@ def selection(population, weights):
     normal_weights = [weight / sum_weights for weight in od_weights]
     indexes = np.random.choice(a=length, size=2, replace=False, p=normal_weights)
     parents = [population[index] for index in indexes]
-    return parents, indexes
+    return parents, np.array(indexes)
 
 
 def next_generation(population, weights):
     sort_ind = np.argsort(weights, axis=0)[:, :1].flatten()
+    sort_ind = sort_ind[::-1]
     sorted_pop = population[sort_ind]
     sorted_weights = weights[sort_ind]
 
-    precalculated = []
-    for i in range(ELITISM):
-        precalculated.append((sorted_pop[i], sorted_weights[i]))
-
+    precalculated = [(pop, weight) for pop,weight in zip(sorted_pop[:ELITISM], sorted_weights[:ELITISM])]
     # list of [(p1,p2), (c1,c2)] indices p1,p2indices in population and c1,c2 in next_gen
     # element is [(p), (c)] for elitism
     mapping = []
@@ -120,7 +118,7 @@ def next_generation(population, weights):
 
     for i in range((POP_SIZE - ELITISM) // 2):
         parents, indexes = selection(sorted_pop, weights)
-
+        indexes = sort_ind[indexes]
         mapping.append([tuple(indexes), (ELITISM + 2*i, ELITISM + 1 +2*i)])
 
         p1,p2 = parents
@@ -138,23 +136,23 @@ def genetic_algo():
 
     for i in range(GENERATIONS):
 
-        gen_file.write(f"GENERATION {i + 1}\n\nINITIAL POPULATION\n")
+        gen_file.write(f"\n\n\nGENERATION {i + 1}\n\nINITIAL POPULATION\n")
         gen_file.write(str(population))
 
         weights = calc_weights(population, precalc)
 
-        gen_file.write("\nWEIGHTS\n")
+        gen_file.write("\n\nWEIGHTS\n")
         gen_file.write(str(weights))
 
         precalc, next_gen, mapping = next_generation(population, weights)
 
-        gen_file.write("\nMAPPING\n")
+        gen_file.write("\n\nMAPPING\n")
         gen_file.write(str(mapping))
-        gen_file.write("\nAFTER CROSSOVER\n")
+        gen_file.write("\n\nAFTER CROSSOVER\n")
         gen_file.write(str(next_gen))
 
         mutation(next_gen)
-        gen_file.write("\nAFTER MUTATION\n")
+        gen_file.write("\n\nAFTER MUTATION\n")
         gen_file.write(str(next_gen))
 
         population = next_gen
