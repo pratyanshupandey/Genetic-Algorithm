@@ -125,8 +125,8 @@ def next_generation(population, weights):
 
         p1,p2 = parents
         c1, c2 = simulated_binary_crossover(p1, p2)
-        np.append(next_gen, np.array([c1]))
-        np.append(next_gen, np.array([c2]))
+        next_gen = np.append(next_gen, np.array([c1]), axis=0)
+        next_gen = np.append(next_gen, np.array([c2]), axis=0)
 
     return precalculated, next_gen, mapping
 
