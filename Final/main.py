@@ -7,10 +7,11 @@ ID = 'SOql4uavXyMdC9BTYktZDz152sPIhQLm6ucxoy2ujxmqb8o7E1'
 MAX_DEG = 11
 POP_SIZE = 25
 MUT_PROB = 0.4
-MUT_RANGE = 0.1
+MUT_RANGE = 0.06
 VAL_RATIO = 1
-TRAIN_RATIO = 1
-GENERATIONS = 5
+TRAIN_RATIO = 1.1
+DIFF_RATIO = 0.9
+GENERATIONS = 8
 ELITISM = 5  # ALways keep POP_SIZE - ELITISM even
 #  Large
 # ηc tends to generate children closer to the parents
@@ -18,8 +19,8 @@ ELITISM = 5  # ALways keep POP_SIZE - ELITISM even
 # ηc allows the children to be far from the parents
 # 2 to 5 is moderate range
 
-DISTRIBUTION_INDEX = 2
-INITIAL_VECTOR = [0,0,0,0,0,0,0,0,0,0,0]
+DISTRIBUTION_INDEX = 3
+INITIAL_VECTOR = [0.0, -1.457990220064754e-12, -2.2898007842769645e-13, 4.620107525277624e-11, -1.7521481289918844e-10, -1.8366976965696096e-15, 8.529440604118815e-16, 2.2942330256117977e-05, -2.0472100298772093e-06, -1.597928341587757e-08, 9.982140340891233e-10]
 
 
 def new_vector(init_vector):
@@ -36,10 +37,12 @@ def new_vector(init_vector):
 def create_population(init_vector):
     try:
         with open("output.txt", "r") as file:
+            print("loading old population")
             population = json.load(file)
             population = np.array(population)
             return population
     except FileNotFoundError:
+        print("creating new population")
         population = np.zeros((POP_SIZE, MAX_DEG), dtype=float)
         population[0] = init_vector
         for i in range(POP_SIZE - 1):
@@ -49,20 +52,18 @@ def create_population(init_vector):
 
 def calc_errors(individual, precalc):
     for item in precalc:
-        # comp = individual == item[0]
         if list(individual) == list(item[0]):
-            print("calc")
             return list(item[1][1:])
     else:
-        # return get_errors(ID, individual)
-        return [random.uniform(1,1000), random.uniform(1,1000)]
+        return get_errors(ID, list(individual))
+        # return [random.uniform(1,1000), random.uniform(1,1000)]
 
 # population = (POP_SIZE * 11) matrix
 def calc_weights(population, precalc):
     weights = np.zeros((len(population), 3), dtype=float)
     for i in range(len(population)):
         train_err, validation_err = calc_errors(population[i], precalc)
-        weight = 1 / ((train_err + validation_err) + abs(train_err - validation_err))
+        weight = 1 / ((TRAIN_RATIO * train_err + VAL_RATIO * validation_err) + DIFF_RATIO * abs(train_err - validation_err))
         weights[i] = weight, train_err, validation_err
     return weights
 
@@ -72,8 +73,11 @@ def mutation(population):
         if random.uniform(0, 1) < MUT_PROB:
             for index in range(11):
                 individual[index] += individual[index] * random.uniform(-MUT_RANGE, MUT_RANGE)
-                individual[index] = max(-10, individual[index])
-                individual[index] = min(10, individual[index])
+
+    for individual in population:
+        for index in range(11):
+            individual[index] = max(-10, individual[index])
+            individual[index] = min(10, individual[index])
     return population
 
 
@@ -135,12 +139,12 @@ def genetic_algo():
     precalc = []
 
     for i in range(GENERATIONS):
-
+        print(i)
         gen_file.write(f"\n\n\nGENERATION {i + 1}\n\nINITIAL POPULATION\n")
         gen_file.write(str(population))
 
         weights = calc_weights(population, precalc)
-
+        print(weights)
         gen_file.write("\n\nWEIGHTS\n")
         gen_file.write(str(weights))
 
