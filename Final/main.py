@@ -7,12 +7,13 @@ ID = 'SOql4uavXyMdC9BTYktZDz152sPIhQLm6ucxoy2ujxmqb8o7E1'
 MAX_DEG = 11
 POP_SIZE = 25
 MUT_PROB = 0.4
-MUT_RANGE = 0.08
+MUT_RANGE = 0.1
 VAL_RATIO = 1
-TRAIN_RATIO = 1.2
-DIFF_RATIO = 1.1
-GENERATIONS = 10
-ELITISM = 5  # ALways keep POP_SIZE - ELITISM even
+TRAIN_RATIO = 1.05
+DIFF_RATIO = 1
+GENERATIONS = 9
+ELITISM = 5
+# ALways keep POP_SIZE - ELITISM even
 #  Large
 # ηc tends to generate children closer to the parents
 #  Small
@@ -89,8 +90,8 @@ def simulated_binary_crossover(p1, p2):
         b = (2 * u) ** (1 / (DISTRIBUTION_INDEX + 1))
     else:
         b = (1 / (2 * (1 - u))) ** (1 / (DISTRIBUTION_INDEX + 1))
-    c1 = 0.5 * ((1 + b) * p1 + (1 - b) * p2)
-    c2 = 0.5 * ((1 - b) * p1 + (1 + b) * p2)
+    c1 = 0.5 * ((1 - b) * p1 + (1 + b) * p2)
+    c2 = 0.5 * ((1 + b) * p1 + (1 - b) * p2)
     return c1, c2
 
 
