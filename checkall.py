@@ -43,7 +43,7 @@ while True:
         # if overall(ind[1]) >4.2e-12:
         #     print(ind[0], overall(ind[1]), ind[1])
         #     init_pop.append(ind)
-        if 1e12 < ind[1][0] < 2e12 and 1e12 < ind[1][1] < 2e12:
+        if 1e12< ind[1][0] < 2e12 and 1e12 < ind[1][1] < 2e12:
             init_pop.append(ind)
         if best_ind_val[1][1] > ind[1][1]:
             best_ind_val = ind
