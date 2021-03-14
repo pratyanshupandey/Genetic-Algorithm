@@ -2,18 +2,19 @@ from client2 import submit
 import json
 ID = 'SOql4uavXyMdC9BTYktZDz152sPIhQLm6ucxoy2ujxmqb8o7E1'
 
-with open("Final/25.json", "r") as file:
+with open("testfile.txt", "r") as file:
     print("loading old population")
     vectors = json.load(file)
 
 assert len(vectors) == 10
-for vector in vectors[::-1]:
+
+for vector in vectors:
     print(vector)
     assert len(vector) == 11
     print(submit(ID, vector))
-    # inp = input("Continue: ")
-    # if inp != "y":
-    #     break
+    inp = input("Continue: ")
+    if inp != "y":
+        break
 
 # assert len(vector) == 11
 # print(submit(ID, vector))
