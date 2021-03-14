@@ -1,4 +1,4 @@
-file = open("Final/log.txt", "r")
+file = open("NEW/log.txt", "r")
 import math
 import random
 import json
@@ -51,7 +51,7 @@ while True:
         #     init_pop.append(ind)
         # 8-1e11,1e11-2e11,....9e11-1e12
         
-        if 2e12 < ind[1][0] < 3e12 and 2e12 < ind[1][1] < 3e12:
+        if 4e10 < ind[1][0] < 6e10 and 4e10 < ind[1][1] < 6e10:
             init_pop.append(ind)
         if best_ind_val[1][1] > ind[1][1]:
             best_ind_val = ind
@@ -81,9 +81,10 @@ init_pop.sort(key=sorter, reverse=True)
 #     print(ind, overall(ind[1]))
 population = []
 [population.append(x) for x in init_pop if x not in population]
-population=random.sample(population,10)
+# population=random.sample(population,10)
 print(len(population))
-for ind in population:  
+population = population[:10]
+for ind in population:
     print(ind)
     print()
 
