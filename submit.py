@@ -2,23 +2,23 @@ from client2 import submit
 import json
 ID = 'SOql4uavXyMdC9BTYktZDz152sPIhQLm6ucxoy2ujxmqb8o7E1'
 
-# with open("testfile.txt", "r") as file:
-#     print("loading old population")
-#     vectors = json.load(file)
+with open("NEW2/output.txt", "r") as file:
+    print("loading old population")
+    vectors = json.load(file)
 
 # assert len(vectors) == 15
 
-# for vector in vectors:
-#     print(vector)
-#     assert len(vector) == 11
-#     print(submit(ID, vector))
-#     inp = input("Continue: ")
-#     if inp != "y":
-#         break
+for vector in vectors:
+    print(vector)
+    assert len(vector) == 11
+    print(submit(ID, vector))
+    inp = input("Continue: ")
+    if inp != "y":
+        break
 
-vector = [-0.10436880468336364, -1.183406925447938e-13, -4.01347245566295e-14, 9.810773499032495e-12, -3.7142691220788486e-11, -8.108103726656736e-17, 3.270333781478692e-16, 5.120487985759753e-06, -1.1492221700558395e-06, -1.7170943133664252e-09, 4.3048224957241544e-10]
-assert len(vector) == 11
-print(submit(ID, vector))
+# vector = [-0.10436880468336364, -1.183406925447938e-13, -4.01347245566295e-14, 9.810773499032495e-12, -3.7142691220788486e-11, -8.108103726656736e-17, 3.270333781478692e-16, 5.120487985759753e-06, -1.1492221700558395e-06, -1.7170943133664252e-09, 4.3048224957241544e-10]
+# assert len(vector) == 11
+# print(submit(ID, vector))
 #
 
 
