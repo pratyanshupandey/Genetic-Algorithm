@@ -18,7 +18,7 @@ def overall(weights):
     elif (train_err + valid_err) + abs(train_err - valid_err) == 0:
         weight = math.inf
     else:
-        weight = 1 / ((train_err + valid_err) + abs(train_err - valid_err))
+        weight = 1 / ((train_err + valid_err) + 0.25*abs(train_err - valid_err))
     # print(train_err, valid_err, weight)
     return weight
 
@@ -49,9 +49,9 @@ while True:
         # if overall(ind[1]) >4.2e-12:
         #     print(ind[0], overall(ind[1]), ind[1])
         #     init_pop.append(ind)
-        # 8-1e11,1e11-2e11,....9e11-1e12
+        # 8-1e11,1e11-2e11,....9e11-1e12....2e12
         
-        if 4e10 < ind[1][0] < 6e10 and 4e10 < ind[1][1] < 6e10:
+        if  1e12 < ind[1][1] < 2e12:
             init_pop.append(ind)
         if best_ind_val[1][1] > ind[1][1]:
             best_ind_val = ind
