@@ -1,12 +1,17 @@
-file = open("../../NEW2/gen_file_old3.txt", "r")
-write_file = open("ready_for_gen_file.txt", "a")
-# upto = 4826
-# for i in range(upto):
+tempelate_file = open("ready_for_gen_file_old23.txt", "r")
+vector_file = open("../../NEW2/gen_file_old3.txt", "r")
+write_file = open("generations_1.txt", "a")
 while True:
-    line = file.readline()
+    line = tempelate_file.readline()
     if line == "":
         break
     write_file.write(line)
 
-file.close()
+upto = 33198
+for i in range(upto):
+    line = vector_file.readline()
+    write_file.write(line)
+
+vector_file.close()
+tempelate_file.close()
 write_file.close()
