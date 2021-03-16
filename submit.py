@@ -1,6 +1,6 @@
 from client2 import submit
 import json
-ID = 'SOql4uavXyMdC9BTYktZDz152sPIhQLm6ucxoy2ujxmqb8o7E1'
+# ID = 'SOql4uavXyMdC9BTYktZDz152sPIhQLm6ucxoy2ujxmqb8o7E1'
 
 with open("testfile.txt", "r") as file:
     print("loading old population")
@@ -16,9 +16,9 @@ for vector in vectors:
     if inp != "y":
         break
 
-# vector = [-0.10436880468336364, -1.183406925447938e-13, -4.01347245566295e-14, 9.810773499032495e-12, -3.7142691220788486e-11, -8.108103726656736e-17, 3.270333781478692e-16, 5.120487985759753e-06, -1.1492221700558395e-06, -1.7170943133664252e-09, 4.3048224957241544e-10]
-# assert len(vector) == 11
-# print(submit(ID, vector))
+vector = [-0.11659813562929511, -1.2885110929990298e-13, -3.577791708504743e-14, 1.2646749212560554e-11, -3.3831773009699504e-11, -9.284248071512872e-17, 4.003342760912018e-16, 6.398320041396442e-06, -1.1245508241603073e-06, -1.4072152000100355e-09, 4.1834156007562354e-10]
+assert len(vector) == 11
+print(submit(ID, vector))
 #
 
 
