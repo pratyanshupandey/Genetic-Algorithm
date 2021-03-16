@@ -1,4 +1,4 @@
-file = open("vectors.txt", "r")
+file = open("final_vectors.txt", "r")
 import json
 
 def format(line):
@@ -15,7 +15,7 @@ while True:
         vector = format(line)
         all_vec.append(vector)
 
-print(len(all_vec))
-# file=open('allvecs.json',"w")
-# json.dump(all_vec,file)
-# file.close()
+assert len(all_vec) == 10
+file=open('output.json',"w")
+json.dump(all_vec,file)
+file.close()
