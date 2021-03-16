@@ -2,7 +2,7 @@ from client2 import submit
 import json
 ID = 'SOql4uavXyMdC9BTYktZDz152sPIhQLm6ucxoy2ujxmqb8o7E1'
 
-with open("NEW2/output.txt", "r") as file:
+with open("testfile.txt", "r") as file:
     print("loading old population")
     vectors = json.load(file)
 
